@@ -2,6 +2,7 @@ package com.mscompra.controller;
 
 import com.mscompra.model.Pedido;
 import com.mscompra.service.PedidoService;
+import jakarta.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<Pedido> salvar(@RequestBody Pedido pedido) {
+    public ResponseEntity<Pedido> salvar(@Valid @RequestBody Pedido pedido) {
         pedido = service.save(pedido);
         return ResponseEntity.ok(pedido);
     }
