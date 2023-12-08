@@ -3,13 +3,13 @@ package com.mscompra.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -37,7 +37,7 @@ public class Pedido {
     @NotNull
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date dataCompra;
-    @NotBlank()
+    @NotBlank
     private String cpfCliente;
     @NotBlank
     private String cep;
