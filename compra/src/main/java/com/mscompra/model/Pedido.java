@@ -24,6 +24,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@ToString
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @Entity(name = "tb_pedido")
 public class Pedido implements Serializable {
