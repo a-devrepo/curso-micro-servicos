@@ -1,14 +1,12 @@
 package com.mscompra.service.rabbitmq;
 
+import com.mscompra.model.Pedido;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/producer")
+@Service
 public class Producer {
     private final RabbitTemplate rabbitTemplate;
     private final Queue queue;
@@ -19,7 +17,7 @@ public class Producer {
     }
 
     @PostMapping
-    public void producer(@RequestBody String payload) {
-        rabbitTemplate.convertAndSend(queue.getName(), payload);
+    public void producer(Pedido pedido) {
+        rabbitTemplate.convertAndSend(queue.getName(), pedido);
     }
 }
