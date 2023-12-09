@@ -16,7 +16,6 @@ import java.util.Date;
 @Builder
 @ToString
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-
 public class Pedido implements Serializable {
     private static final long serialVersionUID = 7335789400519836017L;
     private Long id;
