@@ -11,17 +11,7 @@ import org.springframework.context.annotation.Bean;
 @EnableRabbit
 @SpringBootApplication
 public class WorkercomprasApplication {
-
-    CepService service;
-
-    public WorkercomprasApplication(CepService service) {
-        this.service = service;
-    }
     public static void main(String[] args) {
         SpringApplication.run(WorkercomprasApplication.class, args);
-    }
-    @Bean
-    void teste(){
-        service.buscarCep("25070170");
     }
 }
