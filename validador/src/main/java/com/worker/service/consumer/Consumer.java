@@ -3,6 +3,8 @@ package com.worker.service.consumer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.worker.model.Pedido;
 import com.worker.service.ValidadorService;
+import com.worker.service.exceptions.LimiteIndisponivelException;
+import com.worker.service.exceptions.SaldoInsuficienteException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -23,12 +25,12 @@ public class Consumer {
     }
 
     @RabbitListener(queues = {"${queue.name}"})
-    public void consumer(@Payload Message message) {
+    public void consumer(@Payload Message message) throws IOException {
         var pedido = mapper.readValue(message.getBody(), Pedido.class);
         log.info("Pedido recebido no Validador: {}", pedido);
         try {
             validadorService.validarPedido(pedido);
-        } catch (Exception ex) {
+        } catch (LimiteIndisponivelException | SaldoInsuficienteException ex) {
 
         }
     }
