@@ -62,6 +62,32 @@ class PedidoServiceTest {
         var pedidoSalvo = service.findById(id);
         assertNotNull(pedidoSalvo);
         assertEquals(pedidoMock.getId(), pedidoSalvo.getId());
-        verify(repository,atLeastOnce()).findById(id);
+        verify(repository, atLeastOnce()).findById(id);
+    }
+
+    @DisplayName("Deve excluir pedido com sucesso")
+    @Test
+    void deveExcluirPedidoComSucesso() {
+        var id = 1l;
+        var pedidoMock = dadosMock.getPedido();
+        pedidoMock.setId(id);
+        when(repository.findById(anyLong())).thenReturn(Optional.of(pedidoMock));
+        doNothing().when(repository).deleteById(id);
+
+        service.delete(id);
+        verify(repository, atLeastOnce()).deleteById(id);
+    }
+
+    @DisplayName("Deve falhar ao excluir pedido com sucesso")
+    @Test
+    void deveFalharAoExcluirPedido() {
+        var id = 1l;
+        var pedidoMock = dadosMock.getPedido();
+        pedidoMock.setId(id);
+        when(repository.findById(id)).thenReturn(Optional.empty());
+
+        Throwable exception = assertThrows(NegocioException.class, () -> service.delete(id));
+
+        assertEquals("Pedido não encontrado",exception.getMessage());
     }
 }
