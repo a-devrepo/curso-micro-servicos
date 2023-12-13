@@ -27,7 +27,7 @@ public class PedidoService {
 
     public Pedido findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new NegocioException("Pedido não encontrado"));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Pedido não encontrado"));
     }
 
     public void delete(Long id) {

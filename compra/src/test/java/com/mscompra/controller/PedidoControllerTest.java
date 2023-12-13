@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -61,7 +62,27 @@ class PedidoControllerTest {
 
         Pedido pedidoSalvo = service.findById(id);
 
-        assertEquals(pedidoSalvo.getId(),id);
+        assertEquals(pedidoSalvo.getId(), id);
         assertNotNull(pedidoSalvo);
+    }
+
+    @DisplayName("GET - Deve buscar um pedido com sucesso no banco de dados")
+    @Test
+    void deveBuscarPedidoComSucesso() throws Exception {
+        var id = 1L;
+
+        mockMvc.perform(get(ROTA_PEDIDO + "/{id}", id))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @DisplayName("GET - Deve falhar ao buscar um pedido que não existe")
+    @Test
+    void deveFalharAoBuscarPedido() throws Exception {
+        var id = 3L;
+
+        mockMvc.perform(get(ROTA_PEDIDO + "/{id}", id))
+                .andDo(print())
+                .andExpect(status().isNotFound());
     }
 }

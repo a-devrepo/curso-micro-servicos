@@ -4,10 +4,7 @@ import com.mscompra.model.Pedido;
 import com.mscompra.service.PedidoService;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,6 +22,12 @@ public class PedidoController {
     @PostMapping
     public ResponseEntity<Pedido> salvar(@Valid @RequestBody Pedido pedido) {
         pedido = service.save(pedido);
+        return ResponseEntity.ok(pedido);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Pedido> buscarPorId(@PathVariable("id") Long id) {
+        Pedido pedido = service.findById(id);
         return ResponseEntity.ok(pedido);
     }
 }

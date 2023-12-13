@@ -1,0 +1,1 @@
+ INSERT INTO TB_PEDIDO(id, cep, cpf_cliente, data_compra, email, nome, produto, valor) VALUES (1, '25000000', '111.111.111-11', '2023-12-10', 'study.javaweb11@gmail.com', 'Alison Cruz', 1, 1000.0);
