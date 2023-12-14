@@ -29,3 +29,30 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B test --file ./compra/pom.xml
+
+  build:
+    needs: tests
+    name: Build maven package
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('./compra/pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+      - name: Build package war
+        run: mvn -B package -DskipTests --file ./compra/pom.xml
+      - name: Upload .war
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: ./compra/target/app.war
