@@ -49,7 +49,7 @@ class PedidoControllerTest {
     @DisplayName("POST - Deve cadastrar um novo pedido com sucesso no banco de dados")
     @Test
     @Order(1)
-    void devecadastrarPedidoComSucesso() throws Exception {
+    public void devecadastrarPedidoComSucesso() throws Exception {
         var pedidoBody = dadosMock.getPedido();
         var id = 1L;
 
@@ -71,7 +71,7 @@ class PedidoControllerTest {
     @DisplayName("GET - Deve buscar um pedido com sucesso no banco de dados")
     @Test
     @Order(2)
-    void deveBuscarPedidoComSucesso() throws Exception {
+    public void deveBuscarPedidoComSucesso() throws Exception {
         var id = 1L;
 
         mockMvc.perform(get(ROTA_PEDIDO + "/{id}", id))
@@ -82,7 +82,7 @@ class PedidoControllerTest {
     @DisplayName("GET - Deve falhar ao buscar um pedido que não existe")
     @Test
     @Order(3)
-    void deveFalharAoBuscarPedido() throws Exception {
+    public void deveFalharAoBuscarPedido() throws Exception {
         var id = 2L;
 
         mockMvc.perform(get(ROTA_PEDIDO + "/{id}", id))
@@ -93,7 +93,7 @@ class PedidoControllerTest {
     @DisplayName("Delete - Deve excluir pedido com sucesso")
     @Test
     @Order(4)
-    void deveExcluirPedidoComSucesso() throws Exception {
+    public void deveExcluirPedidoComSucesso() throws Exception {
         var id = 1L;
 
         ResultActions resultActions = mockMvc.perform(delete(ROTA_PEDIDO + "/{id}", id))
