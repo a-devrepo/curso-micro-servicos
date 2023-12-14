@@ -3,6 +3,7 @@ package com.mscompra.controller;
 import com.mscompra.model.Pedido;
 import com.mscompra.service.PedidoService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,5 +30,11 @@ public class PedidoController {
     public ResponseEntity<Pedido> buscarPorId(@PathVariable("id") Long id) {
         Pedido pedido = service.findById(id);
         return ResponseEntity.ok(pedido);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Pedido> excluir(@PathVariable("id") Long id) {
+        service.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
